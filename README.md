@@ -17,8 +17,8 @@ Uninstall
 
 Example
 ==================
-'''C
 
+```C
     #include <stdio.h>
     #include <stdlib.h>
     #include <deskentry.h>
@@ -38,7 +38,7 @@ Example
       return 0;
     }
     
-'''
+```
 Build Example
 ===================
 
