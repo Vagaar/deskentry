@@ -60,3 +60,34 @@ int indexOfKey(const char *key)
 
     return index;
 }
+//----------------------------------------------------------------
+// return file descriptor or NULL if error
+// need path of file with name
+int openFile(char *path)
+{
+    int fd = 0;
+
+    if ((fd = open(path, O_RDONLY)) == -1)
+    {
+        //perror("Create file");
+        return -1;
+    }
+
+    return fd;
+}
+//----------------------------------------------------------------
+// return file descriptor or NULL if error
+// need path of file with name
+int createFile(char *path)
+{
+    int fd = 0;
+
+    if ((fd = open(path, O_WRONLY, O_CREAT | O_EXCL)) == -1)
+    {
+        //perror("Open file");
+        return -1;
+    }
+    writeFullStr(fd, INITIAL_LINE"\n", strlen(INITIAL_LINE));
+
+    return fd;
+}
