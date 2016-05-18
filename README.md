@@ -17,7 +17,7 @@ Uninstall
 
 Example
 ==================
-
+'''
     #include <stdio.h>
     #include <stdlib.h>
     #include <deskentry.h>
@@ -36,8 +36,8 @@ Example
       }
       return 0;
     }
-
+'''
 Build Example
 ===================
 
-$: gcc <source code files> -ldeskentry
+$: gcc source_code.c -ldeskentry
