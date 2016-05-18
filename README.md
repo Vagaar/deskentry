@@ -1,3 +1,20 @@
+Deskentry Library
+==================
+
+This is library can help you manage desktop menu launchers from you code.
+All about .desktop file can be found here https://specifications.freedesktop.org/desktop-entry-spec/latest/
+
+Build&Installation
+==================
+
+    $: make
+    $: sudo make install
+
+Uninstall
+=========
+
+    $: sudo make uninstall
+
 Example
 ==================
 
@@ -20,13 +37,7 @@ Example
       return 0;
     }
 
-Build&Installation
-==================
+Build Example
+===================
 
-    $: make
-    $: sudo make install
-
-Uninstall
-=========
-
-    $: sudo make uninstall
+$: gcc <source code files> -ldeskentry
