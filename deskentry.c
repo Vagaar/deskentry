@@ -179,3 +179,37 @@ entryline_t *readEntry(int fd)
 
     return NULL;
 }
+//----------------------------------------------------------------
+// Get entry key index providet by EEntryKeys enum
+// Return string that contained in array of entry keys by current index or NULL
+const char *getKeyStrByIndex(EEntryKeys key)
+{
+    if (key < NUM_OF_KEYS)
+    {
+        return entryKeys[key];
+    }
+
+    return NULL;
+}
+
+//----------------------------------------------------------------
+int writeFullStr(int fd, const char *sourceStr, size_t lenth)
+{
+    size_t ret;
+
+    while (lenth != 0 && (ret = write(fd, sourceStr, lenth)) != 0)
+    {
+        if (ret == -1)
+        {
+            if (errno == EINTR)
+                continue;
+            //perror("write");
+            return -1;
+        }
+        lenth -= ret;
+        sourceStr += ret;
+    }
+
+    return 0;
+}
+
