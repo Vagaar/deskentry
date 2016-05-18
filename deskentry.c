@@ -13,7 +13,7 @@
 */
 
 #include "deskentry.h"
-
+#include <stdlib.h>
 //----------------------------------------------------------------
 const char *entryKeys[] = {  "Type",
                               "Version",
