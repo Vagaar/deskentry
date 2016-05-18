@@ -25,7 +25,7 @@ This is example printing all data that containing in .desktop file(defined in FI
     #include <stdlib.h>
     #include <deskentry.h>
     
-    #define FILE_PATH  "/usr/share/applications/xfce4-power-manager-settings.desktop"
+    #define FILE_PATH  "/usr/share/applications/firefox.desktop"
     
     int main(int argc, char *argv[])
     {
