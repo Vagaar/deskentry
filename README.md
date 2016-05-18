@@ -18,14 +18,18 @@ Uninstall
 Example
 ==================
 
+This is example printing all data that containing in .desktop file(defined in FILE_PATH)
+
 ```C
     #include <stdio.h>
     #include <stdlib.h>
     #include <deskentry.h>
-
+    
+    #define FILE_PATH  "/usr/share/applications/xfce4-power-manager-settings.desktop"
+    
     int main(int argc, char *argv[])
     {
-      int fd = openFile("/usr/share/applications/xfce4-power-manager-settings.desktop");
+      int fd = openFile(FILE_PATH);
       if (fd)
       {
           entryline_t *entryline = 0;
