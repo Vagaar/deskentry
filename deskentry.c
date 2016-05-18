@@ -91,3 +91,91 @@ int createFile(char *path)
 
     return fd;
 }
+//----------------------------------------------------------------
+//this function receive entryline_t structure, merge all data in it to one string and write it to file
+void writeEntry(int fd, entryline_t *entryline)
+{
+    char line[ENTRY_LINE_MAX] = {0};
+
+    strcpy(line, getKeyStrByIndex(entryline->key));
+    strcat(line, entryline->locale);
+    strcat(line, " = ");
+    strcat(line, entryline->value);
+    strcat(line, "\n");
+
+    writeFullStr(fd, line, strlen(line));
+
+}
+
+//----------------------------------------------------------------
+// Read one line from desktop entry file
+// Return entryline_t structure that contain index of key and value
+entryline_t *readEntry(int fd)
+{
+    int index = 0;
+    int i = 0;
+    char step = 0;
+    char buff[PATH_MAX] = {0};
+    u_int8_t isNewLine = 1;
+    u_int8_t local = 0;
+    entryline_t *entryline = malloc(sizeof(entryline_t));
+    memset(entryline->locale, 0, LOCALE_MAX);
+    memset(entryline->value, 0, NAME_MAX);
+
+    while (read(fd, &step, sizeof(char)) != 0)
+    {
+        if (step == -1)
+        {
+            //perror("Reading file");
+            return NULL;
+        }
+
+        switch (step)
+        {
+
+        case '=': //value pars start
+            if (isNewLine)
+                index = indexOfKey(buff);
+
+            memset(buff, 0, strlen(buff));
+            isNewLine = 0;
+            i = 0;
+            break;
+
+        case '\n': //key pars start
+            if (!isNewLine && index != -1)
+            {
+                entryline->key = index;
+                strncpy(entryline->value, buff, PATH_MAX);
+                return entryline;
+            }
+            isNewLine = 1;
+            memset(buff, 0, strlen(buff));
+            i = 0;
+            break;
+
+        case '[':  //local pars start
+            if (isNewLine && buff[0] != '\0')
+            {
+                memset(entryline->locale, 0, strlen(entryline->locale));
+                while (read(fd, &step, sizeof(char)))
+                {
+                    if (step == ']')
+                        break;
+
+                    entryline->locale[local] = step;
+                    ++local;
+                }
+            }
+
+            break;
+
+        default:
+            buff[i] = step;
+            ++i;
+            break;
+        }
+    }
+
+    return NULL;
+}
